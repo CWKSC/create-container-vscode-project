@@ -2,11 +2,15 @@
 
 This is a CLI tool automates the setup of a containerized VSCode project. It generates necessary files and commands for setting up a project within a Docker container for VSCode development.
 
-## Usage:
+## Install
+
+Need to run under administrator permission
 
 ```bash
 pip install create-container-vscode-project
 ```
+
+## Usage
 
 ```bash
 ccvp <project_name>

@@ -1,0 +1,7 @@
+FROM docker.io/python:3.10
+
+RUN pip install --upgrade pip
+RUN pip install --upgrade setuptools
+RUN pip install --upgrade build
+RUN pip install --upgrade twine
+RUN pip install keyrings.cryptfile

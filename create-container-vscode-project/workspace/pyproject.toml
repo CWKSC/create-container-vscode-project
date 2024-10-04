@@ -6,11 +6,11 @@ build-backend = "hatchling.build"
 packages = ["src/create_container_vscode_project"]
 
 [project.scripts]
-ccvp = "create_container_vscode_project.script:main"
+ccvp = "create_container_vscode_project.main:main"
 
 [project]
 name = "create-container-vscode-project"
-version = "0.0.1"
+version = "0.0.3"
 authors = [
   { name="CWKSC" },
 ]

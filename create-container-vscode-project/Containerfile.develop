@@ -1,0 +1,38 @@
+FROM docker.io/python:3.10
+
+RUN pip install --upgrade pip
+
+# Install Python packaging package
+RUN pip install build
+RUN pip install twine
+RUN pip install keyrings.cryptfile
+
+# Install PowerShell
+# https://learn.microsoft.com/en-us/powershell/scripting/install/install-ubuntu?view=powershell-7.4#installation-via-direct-download
+COPY ./resources/powershell_7.4.5-1.deb_amd64.deb /
+RUN dpkg -i powershell_7.4.5-1.deb_amd64.deb
+RUN apt-get install -f  
+RUN rm powershell_7.4.5-1.deb_amd64.deb
+
+# Install Docker
+# https://docs.docker.com/engine/install/ubuntu/
+RUN apt-get update && \
+    apt-get install -y ca-certificates curl gnupg
+RUN install -m 0755 -d /etc/apt/keyrings
+RUN curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+RUN chmod a+r /etc/apt/keyrings/docker.gpg
+RUN echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  tee /etc/apt/sources.list.d/docker.list > /dev/null
+RUN apt-get update && \
+    apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+RUN apt-get install -y fuse-overlayfs
+
+# Install VSCode
+# https://code.visualstudio.com/docs/setup/linux
+RUN apt-get update && apt-get install -y wget
+RUN wget -O vscode.deb "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
+RUN apt-get install -y ./vscode.deb
+RUN rm vscode.deb
+

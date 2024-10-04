@@ -1,1 +1,4 @@
-python3 -m twine upload dist/*
+python3 -m twine upload \
+    --config-file .pypirc \
+    --verbose \
+    dist/*

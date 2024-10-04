@@ -1,0 +1,8 @@
+FROM create-container-vscode-project-develop-image
+
+COPY ./workspace /workspace
+
+WORKDIR /workspace
+
+RUN ./install_local.sh
+RUN ./build.sh

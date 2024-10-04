@@ -1,1 +1,5 @@
-python3 -m twine upload --repository testpypi dist/*
+python3 -m twine upload \
+    --config-file .pypirc \
+    --repository testpypi \
+    --verbose \
+    dist/*

@@ -10,7 +10,7 @@ ccvp = "create_container_vscode_project.script:main"
 
 [project]
 name = "create-container-vscode-project"
-version = "0.0.0"
+version = "0.0.1"
 authors = [
   { name="CWKSC" },
 ]

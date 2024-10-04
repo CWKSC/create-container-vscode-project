@@ -21,9 +21,12 @@ ccvp <project_name>
 ```
 <project_name>/
 |__ workspace/
-|__ build.cmd
+|__ build.ps1
 |__ Containerfile
-|__ kill.cmd
-|__ start.cmd
+|__ kill.ps1
+|__ start.ps1
 ```
+
+Powershell (`.ps1`) is cross-platform, this why I use it
+
 

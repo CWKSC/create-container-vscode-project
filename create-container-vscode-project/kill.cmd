@@ -1,1 +1,0 @@
-docker container kill create-container-vscode-project-container

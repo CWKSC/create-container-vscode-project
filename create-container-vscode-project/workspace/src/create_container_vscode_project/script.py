@@ -11,34 +11,41 @@ RUN pip install --upgrade pip
     save_to_file(content, project_name, "Containerfile")
 
 def generate_build_cmd(project_name):
-    content = f"""docker image build . ^
-    --file ./Containerfile ^
-    --tag {project_name}-image"""
-    save_to_file(content, project_name, "build.cmd")
+    content = f"""docker image build . `
+    --file ./Containerfile `
+    --tag {project_name}-image
+"""
+    save_to_file(content, project_name, "build.ps1")
 
 def generate_start_cmd(project_name):
     container_name = f"{project_name}-container"
     container_name_hex = container_name.encode('ascii').hex()
-    content = f"""docker container run ^
-    --detach ^
-    --hostname "{container_name}" ^
-    --interactive ^
-    --name "{container_name}" ^
-    --privileged ^
-    --rm ^
-    --stop-timeout 0 ^
-    --tty ^
-    --volume "%cd%/workspace/:/workspace/" ^
-    --gpus all ^
+    content = f"""docker container run `
+    --detach `
+    --hostname "{container_name}" `
+    --interactive `
+    --name "{container_name}" `
+    --rm `
+    --stop-timeout 0 `
+    --tty `
+    --volume "$PWD/workspace/:/workspace/" `
     {project_name}-image
 
-code --folder-uri vscode-remote://attached-container+{container_name_hex}/workspace
+if (Get-Command "cursor" -errorAction SilentlyContinue)
+{{
+    cursor --folder-uri vscode-remote://attached-container+{container_name_hex}/workspace
+}}
+elseif (Get-Command "code" -errorAction SilentlyContinue)
+{{
+    code --folder-uri vscode-remote://attached-container+{container_name_hex}/workspace
+}}
+
 """
-    save_to_file(content, project_name, "start.cmd")
+    save_to_file(content, project_name, "start.ps1")
 
 def generate_kill_cmd(project_name):
     content = f"docker container kill {project_name}-container"
-    save_to_file(content, project_name, "kill.cmd")
+    save_to_file(content, project_name, "kill.ps1")
 
 def save_to_file(content, project_name, filename):
     with open(Path(project_name) / filename, 'w') as file:

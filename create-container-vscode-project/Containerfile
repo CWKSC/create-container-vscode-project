@@ -1,7 +1,15 @@
 FROM docker.io/python:3.10
 
 RUN pip install --upgrade pip
-RUN pip install --upgrade setuptools
-RUN pip install --upgrade build
-RUN pip install --upgrade twine
+RUN pip install build
+RUN pip install twine
 RUN pip install keyrings.cryptfile
+
+# Install PowerShell
+# https://learn.microsoft.com/en-us/powershell/scripting/install/install-ubuntu?view=powershell-7.4#installation-via-direct-download
+COPY ./resources/powershell_7.4.5-1.deb_amd64.deb /
+RUN dpkg -i powershell_7.4.5-1.deb_amd64.deb
+RUN apt-get install -f  
+RUN rm powershell_7.4.5-1.deb_amd64.deb
+
+

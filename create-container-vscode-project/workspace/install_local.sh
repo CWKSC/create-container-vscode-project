@@ -1,1 +1,3 @@
-pip install -e .
+pip install \
+    --root-user-action ignore \
+    --editable .
